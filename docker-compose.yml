@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    depends_on:
+    - php-fpm
+    image: local:nginx
+    networks:
+    - web
+    ports:
+    - "80:80"
+    volumes:
+    - /home/jinpeng/www:/home/jinpeng/www:rw
+
+  php-fpm:
+    build:
+      context: ./php-fpm
+    image: local:php_fpm
+    networks:
+    - web
+    volumes:
+    - /home/jinpeng/www:/home/jinpeng/www:rw
+
+networks:
+  web:
